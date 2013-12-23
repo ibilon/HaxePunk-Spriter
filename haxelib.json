@@ -1,0 +1,13 @@
+{
+	"name": "HaxePunk-Spriter",
+	"url" : "https://github.com/ibilon/HaxePunk-Spriter",
+	"license": "MIT",
+	"tags": ["spriter", "HaxePunk"],
+	"description": "",
+	"version": "0.0.1-alpha",
+	"releasenote": "",
+	"contributors": ["ibilon"],
+	"dependencies": {
+		"HaxePunk": "2.4.5"
+	}
+}
