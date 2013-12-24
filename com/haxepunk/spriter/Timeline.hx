@@ -23,7 +23,7 @@ class Timeline
 		keys = new Array<TimelineKey>();
 		
 		id = Std.parseInt(fast.att.id);
-		name = fast.att.name;
+		name = fast.has.name ? fast.att.name : "";
 		objectType = fast.has.objectType ? Type.createEnum(ObjectType, fast.att.objectType.toUpperCase()) : ObjectType.SPRITE;
 		
 		for (k in fast.nodes.key)

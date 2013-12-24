@@ -11,7 +11,7 @@ class Folder
 		files = new Array<File>();
 		
 		id = Std.parseInt(fast.att.id);
-		name = fast.att.name;
+		name = fast.has.name ? fast.att.name : "";
 		
 		for (f in fast.nodes.file)
 		{
