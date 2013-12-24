@@ -2,6 +2,8 @@ package com.haxepunk.spriter;
 
 import com.haxepunk.Graphic;
 
+import flash.display.BitmapData;
+import flash.geom.Point;
 import openfl.Assets;
 
 class Spriter extends Graphic
@@ -12,7 +14,13 @@ class Spriter extends Graphic
 		this.x = x;
 		this.y = y;
 		
-		_scml = new Scml(this, Xml.parse(Assets.getText(source)));
+		_scml = new Scml(this, source, Xml.parse(Assets.getText(source)));
+	}
+	
+	public override function render (target:BitmapData, point:Point, camera:Point)
+	{
+		//~ _scml.currentTime = _scml.currentTime;
+		_scml.currentTime += 10;
 	}
 	
 	public var angle : Float = 0;

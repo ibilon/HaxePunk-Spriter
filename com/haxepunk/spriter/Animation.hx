@@ -27,14 +27,14 @@ class Animation
 		}
 	}
 	
-	@:isVar public var currentTime(get_currentTime, set_currentTime) : Int;
+	@:isVar public var currentTime(get_currentTime, set_currentTime) : Int = 0;
 	public inline function get_currentTime () : Int
 	{
 		return currentTime;
 	}
 	public inline function set_currentTime (value:Int) : Int
 	{
-		if (looping)
+		if (!looping)
 		{
 			value = Std.int(Math.min(value, length));
 		}
@@ -156,7 +156,34 @@ class Animation
 		{
 			keyBTime += length;
 		}
-
+		
+		//~ if (Std.is(keyA, BoneTimelineKey))
+		//~ {
+			//~ if (Std.is(keyB, BoneTimelineKey))
+				//~ return cast(keyA, BoneTimelineKey).interpolate(cast(keyB, BoneTimelineKey), keyBTime, currentTime);
+			//~ else if (Std.is(keyB, SpriteTimelineKey))
+				//~ return cast(keyA, BoneTimelineKey).interpolate(cast(keyB, SpriteTimelineKey), keyBTime, currentTime);
+			//~ else
+				//~ return cast(keyA, BoneTimelineKey).interpolate(keyB, keyBTime, currentTime);
+		//~ }
+		//~ 
+		//~ if (Std.is(keyA, SpriteTimelineKey))
+		//~ {	
+			//~ if (Std.is(keyB, BoneTimelineKey))
+				//~ return cast(keyA, SpriteTimelineKey).interpolate(cast(keyB, BoneTimelineKey), keyBTime, currentTime);
+			//~ else if (Std.is(keyB, SpriteTimelineKey))
+				//~ return cast(keyA, SpriteTimelineKey).interpolate(cast(keyB, SpriteTimelineKey), keyBTime, currentTime);
+			//~ else
+				//~ return cast(keyA, SpriteTimelineKey).interpolate(keyB, keyBTime, currentTime);
+		//~ }
+		//~ 
+		//~ if (Std.is(keyB, BoneTimelineKey))
+			//~ return keyA.interpolate(cast(keyB, BoneTimelineKey), keyBTime, currentTime);
+		//~ else if (Std.is(keyB, SpriteTimelineKey))
+			//~ return keyA.interpolate(cast(keyB, SpriteTimelineKey), keyBTime, currentTime);
+		//~ else
+			//~ return keyA.interpolate(keyB, keyBTime, currentTime);
+		
 		return keyA.interpolate(keyB, keyBTime, currentTime);
 	}
 	

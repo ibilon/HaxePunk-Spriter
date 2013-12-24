@@ -73,6 +73,17 @@ class TimelineKey
 	public function linear (keyB : TimelineKey, t) : TimelineKey
 	{
 		// overridden in inherited types  return linear(this,keyB,t);
+		
+		if (bones.length == 1)
+		{
+			return bones[0].linear(keyB, t);
+		}
+		if (objects.length == 1)
+		{
+			return objects[0].linear(keyB, t);
+		}
+		
+		trace("noooo");
 		return null; // ?
 	}
 }

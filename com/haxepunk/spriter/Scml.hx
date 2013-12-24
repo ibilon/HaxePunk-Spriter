@@ -2,7 +2,7 @@ package com.haxepunk.spriter;
 
 class Scml
 {
-	public function new (parent:Spriter, source:Xml)
+	public function new (parent:Spriter, name:String, source:Xml)
 	{
 		_folders = new Array<Folder>();
 		_entities = new Array<ScmlEntity>();
@@ -14,16 +14,20 @@ class Scml
 		
 		if (fast.att.scml_version != "1.0")
 			trace("Warning, HaxePunk-Spriter may not be compatible with the scml version used in the file.");
+			
+		var folder = name.substr(0, name.lastIndexOf("/")+1);
 		
 		for (f in fast.nodes.folder)
 		{
-			_folders.push(new Folder(f));
+			_folders.push(new Folder(folder, f));
 		}
 		
 		for (e in fast.nodes.entity)
 		{
 			_entities.push(new ScmlEntity(this, e));
 		}
+		
+		activeCharacterMap = _folders;
 	}
 	
 	public var currentTime(get_currentTime, set_currentTime) : Int;
@@ -66,8 +70,8 @@ class Scml
 	
 	public var activeCharacterMap : Array<Folder>;
 	
-	private var _currentEntity : Int;
-	private var _currentAnimation : Int;
+	private var _currentEntity : Int = 0;
+	private var _currentAnimation : Int = 3;
 	private var _folders : Array<Folder>; // <folder> tags
 	private var _entities : Array<ScmlEntity>; // <entity> tags
 	private var _parent : Spriter;

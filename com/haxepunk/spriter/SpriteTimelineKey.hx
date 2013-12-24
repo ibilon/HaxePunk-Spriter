@@ -34,14 +34,38 @@ class SpriteTimelineKey extends SpatialTimelineKey
 		// paint image represented by
 		// ScmlObject.activeCharacterMap[folder].files[file],fileReference 
 		// at x,y,angle (counter-clockwise), offset by paintPivotX,paintPivotY
+		
+		var image = _parent.activeCharacterMap[folder].files[file].image;		
+		image.x = info.x * paintPivotX; //- paintPivotX;// + info.x;
+		image.y = -info.y * paintPivotY;// - paintPivotY;// + info.y;
+		//~ 
+		//~ image.angle = info.angle;
+		//~ if (image.angle > 180)
+			//~ image.angle -= 360;
+		//~ if (image.angle < -180)
+			//~ image.angle += 360;
+		
+		//~ trace(paintPivotX + " " + paintPivotY);
+		image.scaleX = info.scaleX;
+		image.scaleY = info.scaleY;
+		
+		//~ var ci = _parent.characterInfo();
+		
+		var point = new flash.geom.Point(0,0);
+		//~ var point = new flash.geom.Point(info.x, -info.y);
+		image.render(HXP.buffer, point, HXP.camera);
+		
+		//HXP.buffer.copyPixels(_buffer, _bufferRect, _point, null, null, true);
 	}
 	
 	public override function linear (keyB:TimelineKey, t:Float) : TimelineKey
 	{
-		if (!Std.is(keyB, SpriteTimelineKey))
-			throw "Error should be a SpriteTimelineKey";
-			
-		var keyB_stk = cast(keyB, SpriteTimelineKey);
+		//~ if (!Std.is(keyB, SpriteTimelineKey))
+			//~ throw "Error should be a SpriteTimelineKey";
+			//~ 
+		//~ var keyB_stk = cast(keyB, SpriteTimelineKey);
+		
+		var keyB_stk = keyB.objects[0];
 		
 		var returnKey : SpriteTimelineKey = this;
 		returnKey.info = SpatialInfo.linear(info, keyB_stk.info, info.spin, t);

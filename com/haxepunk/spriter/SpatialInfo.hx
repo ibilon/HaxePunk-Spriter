@@ -40,7 +40,7 @@ class SpatialInfo
 			var c = Math.cos(parentInfo.angle * HXP.RAD);
 			
 			unmapped_x = (preMultX * c) - (preMultY * s);
-			unmapped_y = (preMultX * s) - (preMultY * c);
+			unmapped_y = (preMultX * s) + (preMultY * c);
 			unmapped_x += parentInfo.x;
 			unmapped_y += parentInfo.y;
 		}
