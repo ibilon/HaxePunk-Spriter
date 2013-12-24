@@ -3,9 +3,9 @@ package com.haxepunk.spriter;
 class Map
 {
 	public var folder : Int;
-    public var file : Int;
-    public var targetFolder : Int;
-    public var targetFile : Int;
+	public var file : Int;
+	public var targetFolder : Int;
+	public var targetFile : Int;
 	
 	public function new (fast:haxe.xml.Fast)
 	{		

@@ -1,12 +1,12 @@
 import com.haxepunk.Scene;
 
-import com.haxepunk.spriter.SpriterEntity;
+import com.haxepunk.spriter.Spriter;
 
 class MainScene extends Scene
 {
 	public override function begin()
 	{
-		var spriter : SpriterEntity = new SpriterEntity("sprites/Test.scml", 100, 300);
-		add(spriter);
+		var spriter : Spriter = new Spriter("sprites/Test.scml");
+		addGraphic(spriter);
 	}
 }

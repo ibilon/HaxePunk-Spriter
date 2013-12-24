@@ -14,11 +14,11 @@ enum ObjectType
 class Timeline
 {
 	public var id : Int;
-    public var name : String;
-    public var objectType : ObjectType;
-    public var keys : Array<TimelineKey>; // <key> tags within <timeline> tags
+	public var name : String;
+	public var objectType : ObjectType;
+	public var keys : Array<TimelineKey>; // <key> tags within <timeline> tags
 	
-	public function new (fast:haxe.xml.Fast)
+	public function new (parent:Scml, fast:haxe.xml.Fast)
 	{
 		keys = new Array<TimelineKey>();
 		
@@ -28,7 +28,7 @@ class Timeline
 		
 		for (k in fast.nodes.key)
 		{
-			keys.push(new TimelineKey(k));
+			keys.push(new TimelineKey(parent, k));
 		}
 	}
 }

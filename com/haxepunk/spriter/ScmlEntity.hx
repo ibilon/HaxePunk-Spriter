@@ -5,9 +5,9 @@ class ScmlEntity
 	public var id : Int;
 	public var name : String;
 	public var characterMaps : Array<CharacterMap>; // <character_map> tags
-    public var animations : Array<Animation>; // <animation> tags
+	public var animations : Array<Animation>; // <animation> tags
 	
-	public function new (fast:haxe.xml.Fast)
+	public function new (parent:Scml, fast:haxe.xml.Fast)
 	{
 		characterMaps = new Array<CharacterMap>();
 		animations = new Array<Animation>();
@@ -22,7 +22,7 @@ class ScmlEntity
 		
 		for (a in fast.nodes.animation)
 		{
-			animations.push(new Animation(a));
+			animations.push(new Animation(parent, a));
 		}
 	}
 }
