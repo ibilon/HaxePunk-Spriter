@@ -10,26 +10,13 @@ enum CurveType
 
 class TimelineKey
 {	
-	public function new (parent:Scml, fast:haxe.xml.Fast)
+	public function new (fast:haxe.xml.Fast)
 	{
-		bones = new Array<BoneTimelineKey>();
-		objects = new Array<SpriteTimelineKey>();
-		
 		id = fast.has.id ? Std.parseInt(fast.att.id) : 0;
 		time = fast.has.time ? Std.parseInt(fast.att.time) : 0;
-		curveType = fast.has.curveType ? Type.createEnumIndex(CurveType, Std.parseInt(fast.att.curveType)) : CurveType.LINEAR;
+		curveType = fast.has.curve_type ? Type.createEnumIndex(CurveType, Std.parseInt(fast.att.curve_type)) : CurveType.INSTANT;
 		c1 = fast.has.c1 ? Std.parseFloat(fast.att.c1) : 0;
 		c2 = fast.has.c2 ? Std.parseFloat(fast.att.c2) : 0;
-		
-		for (b in fast.nodes.bone)
-		{
-			bones.push(new BoneTimelineKey(parent, b));
-		}
-		
-		for (o in fast.nodes.object)
-		{
-			objects.push(new SpriteTimelineKey(parent, o));
-		}
 	}
 	
 	public var id : Int;
@@ -72,18 +59,8 @@ class TimelineKey
 	
 	public function linear (keyB : TimelineKey, t) : TimelineKey
 	{
-		// overridden in inherited types  return linear(this,keyB,t);
-		
-		if (bones.length == 1)
-		{
-			return bones[0].linear(keyB, t);
-		}
-		if (objects.length == 1)
-		{
-			return objects[0].linear(keyB, t);
-		}
-		
-		trace("noooo");
-		return null; // ?
+		// overridden in inherited types
+		trace("Should not be called");
+		return null;
 	}
 }

@@ -9,12 +9,10 @@ class BoneTimelineKey extends SpatialTimelineKey
 	
 	public override function linear (keyB:TimelineKey, t:Float) : TimelineKey
 	{
-		//~ if (!Std.is(keyB, BoneTimelineKey))
-			//~ throw "Error should be a BoneTimelineKey";
-			//~ 
-		//~ var keyB_btk = cast(keyB, BoneTimelineKey);
-		
-		var keyB_btk = keyB.bones[0];
+		if (!Std.is(keyB, BoneTimelineKey))
+			throw "Error should be a BoneTimelineKey";
+			
+		var keyB_btk = cast(keyB, BoneTimelineKey);
 		
 		var returnKey : BoneTimelineKey = this;
 		returnKey.info = SpatialInfo.linear(info, keyB_btk.info, info.spin, t);

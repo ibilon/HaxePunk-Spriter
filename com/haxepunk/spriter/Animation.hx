@@ -36,7 +36,7 @@ class Animation
 	{
 		if (!looping)
 		{
-			value = Std.int(Math.min(value, length));
+			value = Std.int(Math.min(value, length-1));
 		}
 		else
 		{
@@ -156,33 +156,6 @@ class Animation
 		{
 			keyBTime += length;
 		}
-		
-		//~ if (Std.is(keyA, BoneTimelineKey))
-		//~ {
-			//~ if (Std.is(keyB, BoneTimelineKey))
-				//~ return cast(keyA, BoneTimelineKey).interpolate(cast(keyB, BoneTimelineKey), keyBTime, currentTime);
-			//~ else if (Std.is(keyB, SpriteTimelineKey))
-				//~ return cast(keyA, BoneTimelineKey).interpolate(cast(keyB, SpriteTimelineKey), keyBTime, currentTime);
-			//~ else
-				//~ return cast(keyA, BoneTimelineKey).interpolate(keyB, keyBTime, currentTime);
-		//~ }
-		//~ 
-		//~ if (Std.is(keyA, SpriteTimelineKey))
-		//~ {	
-			//~ if (Std.is(keyB, BoneTimelineKey))
-				//~ return cast(keyA, SpriteTimelineKey).interpolate(cast(keyB, BoneTimelineKey), keyBTime, currentTime);
-			//~ else if (Std.is(keyB, SpriteTimelineKey))
-				//~ return cast(keyA, SpriteTimelineKey).interpolate(cast(keyB, SpriteTimelineKey), keyBTime, currentTime);
-			//~ else
-				//~ return cast(keyA, SpriteTimelineKey).interpolate(keyB, keyBTime, currentTime);
-		//~ }
-		//~ 
-		//~ if (Std.is(keyB, BoneTimelineKey))
-			//~ return keyA.interpolate(cast(keyB, BoneTimelineKey), keyBTime, currentTime);
-		//~ else if (Std.is(keyB, SpriteTimelineKey))
-			//~ return keyA.interpolate(cast(keyB, SpriteTimelineKey), keyBTime, currentTime);
-		//~ else
-			//~ return keyA.interpolate(keyB, keyBTime, currentTime);
 		
 		return keyA.interpolate(keyB, keyBTime, currentTime);
 	}
