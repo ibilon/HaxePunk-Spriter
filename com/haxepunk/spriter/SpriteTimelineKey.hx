@@ -37,39 +37,18 @@ class SpriteTimelineKey extends SpatialTimelineKey
 		// paint image represented by
 		// ScmlObject.activeCharacterMap[folder].files[file],fileReference 
 		// at x,y,angle (counter-clockwise), offset by paintPivotX,paintPivotY
-		//~ trace(_parent.activeCharacterMap[folder].files[file]);
 		var image = _file.image;
-		//~ image.centerOO();
-		//~ image.originX = paintPivotX;// + info.x;
-		//~ image.originY = paintPivotY;// + info.y;
-		//~ image.originX = -image.width * paintPivotX; //- paintPivotX;// + info.x;
-		//~ image.originY = -image.height * paintPivotY;// - paintPivotY;// + info.y;
-		//~ image.x = info.x * paintPivotX; //- paintPivotX;// + info.x;
-		//~ image.y = -info.y * paintPivotY;// - paintPivotY;// + info.y;
-		image.x = paintPivotX; //- paintPivotX;// + info.x;
-		image.y = -paintPivotY;// - paintPivotY;// + info.y;
+		image.centerOO();
+		image.x = -(paintPivotX - 0.5) * image.width * info.scaleX;
+		image.y = (paintPivotY - 0.5) * image.height * info.scaleY;
 		image.angle = info.angle;
 		image.smooth = _parent.smooth;
 		image.alpha = info.alpha;
-		//~ trace(info.alpha);
-		
-		//~ trace(paintPivotX + " " + paintPivotY);
 		image.scaleX = info.scaleX;
 		image.scaleY = info.scaleY;
 		
-		//~ var ci = _parent.characterInfo();
-		
-		//~ var point = new flash.geom.Point(0,0);
 		var point = new flash.geom.Point(info.x, -info.y);
-		//~ var point = new flash.geom.Point(info.x-image.x-paintPivotX, -info.y-image.y-paintPivotY);
-		//~ var point = new flash.geom.Point(info.x+image.originX, -info.y-image.originY);
 		image.render(HXP.buffer, point, HXP.camera);
-		//~ com.haxepunk.utils.Draw.linePlus(info.x+image.x, -info.y+image.y, info.x + image.width+image.x, -info.y+image.y);
-		//~ com.haxepunk.utils.Draw.linePlus(info.x+image.x, -info.y+image.y, info.x+image.x, -info.y+image.height+image.y);
-		//~ com.haxepunk.utils.Draw.linePlus(info.x+image.x, -info.y+image.height+image.y, info.x + image.width+image.x, -info.y+image.height+image.y);
-		//~ com.haxepunk.utils.Draw.linePlus(info.x+image.width+image.x, -info.y+image.y, info.x + image.width+image.x, -info.y+image.height+image.y);
-		
-		//HXP.buffer.copyPixels(_buffer, _bufferRect, _point, null, null, true);
 	}
 	
 	public override function linear (keyB:TimelineKey, t:Float) : TimelineKey
