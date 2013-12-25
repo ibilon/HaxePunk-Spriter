@@ -38,16 +38,18 @@ class SpriteTimelineKey extends SpatialTimelineKey
 		// ScmlObject.activeCharacterMap[folder].files[file],fileReference 
 		// at x,y,angle (counter-clockwise), offset by paintPivotX,paintPivotY
 		var image = _file.image;
-		image.centerOO();
-		image.x = -(paintPivotX - 0.5) * image.width * info.scaleX;
-		image.y = (paintPivotY - 0.5) * image.height * info.scaleY;
 		image.angle = info.angle;
 		image.smooth = _parent.smooth;
 		image.alpha = info.alpha;
 		image.scaleX = info.scaleX;
 		image.scaleY = info.scaleY;
 		
-		var point = new flash.geom.Point(info.x, -info.y);
+		var s = Math.sin(info.angle*HXP.RAD);
+		var c = Math.cos(info.angle*HXP.RAD);
+		var imagex = -(paintPivotX + 0.0) * image.width * info.scaleX;
+		var imagey = (paintPivotY - 1.0) * image.height * info.scaleY;		
+		var point = new flash.geom.Point((imagex * c) - (imagey * s) + info.x, (imagex * s) + (imagey * c) - info.y);
+		
 		image.render(HXP.buffer, point, HXP.camera);
 	}
 	
