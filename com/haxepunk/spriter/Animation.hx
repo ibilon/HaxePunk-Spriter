@@ -43,7 +43,7 @@ class Animation
 			value %= length;
 		}
 		
-		updateCharacter(mainlineKeyFromTime(currentTime), value);
+		updateCharacter(mainlineKeyFromTime(value), value);
 		
 		return currentTime = value;
 	}
@@ -111,12 +111,12 @@ class Animation
 		
 		for (m in 0...mainlineKeys.length)
 		{
-			if (mainlineKeys[m].time <= currentTime)
+			if (mainlineKeys[m].time <= time)
 			{
 				currentMainKey = m;
 			}
 			
-			if (mainlineKeys[m].time >= currentTime)
+			if (mainlineKeys[m].time >= time)
 			{
 				break;
 			}
@@ -157,7 +157,7 @@ class Animation
 			keyBTime += length;
 		}
 		
-		return keyA.interpolate(keyB, keyBTime, currentTime);
+		return keyA.interpolate(keyB, keyBTime, newTime);
 	}
 	
 	private var _parent : Scml;

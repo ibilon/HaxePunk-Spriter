@@ -19,8 +19,7 @@ class Spriter extends Graphic
 	
 	public override function render (target:BitmapData, point:Point, camera:Point)
 	{
-		//~ _scml.currentTime = _scml.currentTime;
-		_scml.currentTime += 1;
+		_scml.currentTime += Std.int(HXP.elapsed*1000);
 	}
 	
 	public var angle : Float = 0;

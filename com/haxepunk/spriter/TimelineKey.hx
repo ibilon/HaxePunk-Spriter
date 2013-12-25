@@ -14,6 +14,7 @@ class TimelineKey
 	{
 		id = fast.has.id ? Std.parseInt(fast.att.id) : 0;
 		time = fast.has.time ? Std.parseInt(fast.att.time) : 0;
+		// Should be linear by default, but interpolation is broken right now
 		curveType = fast.has.curve_type ? Type.createEnumIndex(CurveType, Std.parseInt(fast.att.curve_type)) : CurveType.INSTANT;
 		c1 = fast.has.c1 ? Std.parseFloat(fast.att.c1) : 0;
 		c2 = fast.has.c2 ? Std.parseFloat(fast.att.c2) : 0;

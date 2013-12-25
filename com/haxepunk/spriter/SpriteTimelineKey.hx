@@ -49,6 +49,9 @@ class SpriteTimelineKey extends SpatialTimelineKey
 		image.x = paintPivotX; //- paintPivotX;// + info.x;
 		image.y = -paintPivotY;// - paintPivotY;// + info.y;
 		image.angle = info.angle;
+		image.smooth = _parent.smooth;
+		image.alpha = info.alpha;
+		//~ trace(info.alpha);
 		
 		//~ trace(paintPivotX + " " + paintPivotY);
 		image.scaleX = info.scaleX;

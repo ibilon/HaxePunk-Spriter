@@ -69,9 +69,10 @@ class Scml
 	}
 	
 	public var activeCharacterMap : Array<Folder>;
+	public var smooth : Bool = true;
 	
 	private var _currentEntity : Int = 0;
-	private var _currentAnimation : Int = 3;
+	private var _currentAnimation : Int = 2;
 	private var _folders : Array<Folder>; // <folder> tags
 	private var _entities : Array<ScmlEntity>; // <entity> tags
 	private var _parent : Spriter;

@@ -10,6 +10,7 @@ class Main extends Engine
 #if debug
 		HXP.console.enable(Key.A);
 #end
+		HXP.screen.smoothing = true;
 		HXP.scene = new MainScene();
 	}
 

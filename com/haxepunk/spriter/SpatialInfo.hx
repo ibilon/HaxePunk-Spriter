@@ -21,7 +21,7 @@ class SpatialInfo
 	public var scaleX(default, null) : Float;
 	public var scaleY(default, null) : Float;
 	public var alpha(default, null) : Float;
-	public var spin : Int;
+	public var spin(default, null) : Int;
 	
 	public function unmapFromParent (parentInfo:SpatialInfo) : SpatialInfo
 	{
