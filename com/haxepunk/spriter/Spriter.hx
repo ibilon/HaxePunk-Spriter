@@ -13,6 +13,7 @@ class Spriter extends Graphic
 		super();
 		this.x = x;
 		this.y = y;
+		blit = true;
 		
 		_scml = new Scml(this, source, Xml.parse(Assets.getText(source)));
 	}
