@@ -23,6 +23,11 @@ class Spriter extends Graphic
 		_scml.currentTime += Std.int(HXP.elapsed*1000);
 	}
 	
+	public function playAnim(animName:String):Void
+	{
+		_scml.playAnim(animName);
+	}
+	
 	public var angle : Float = 0;
 	public var scaleX : Float = 1;
 	public var scaleY : Float = 1;
