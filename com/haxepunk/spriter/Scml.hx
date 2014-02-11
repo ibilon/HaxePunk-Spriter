@@ -68,6 +68,21 @@ class Scml
 		}
 	}
 	
+	public function playAnim(animName:String):Void
+	{
+		var currentEnt = _entities[_currentEntity];
+		var currentAnim:Animation ;
+		for (currentAnim in currentEnt.animations)
+		{
+			if (currentAnim.name == animName)
+			{
+				_currentAnimation = currentAnim.id;
+				currentAnim.currentTime = 0;
+				break;
+			}
+		}
+	}
+	
 	public var activeCharacterMap : Array<Folder>;
 	public var smooth : Bool = true;
 	
