@@ -17,10 +17,10 @@ class File
 		pivotX = fast.has.pivot_x ? Std.parseFloat(fast.att.pivot_x) : 0.0;
 		pivotY = fast.has.pivot_x ? Std.parseFloat(fast.att.pivot_y) : 1.0;
 		
-		var	pos:Int = name.lastIndexOf("/");
+		var	pos = name.lastIndexOf("/");
 		if (pos != -1)
 		{
-			name = name.substr(++pos);
+			name = name.substr(pos + 1);
 		}
 		
 		image = new Image(path + name);
