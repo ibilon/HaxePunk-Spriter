@@ -50,7 +50,7 @@ class SpriteTimelineKey extends SpatialTimelineKey
 		var imagey = (paintPivotY - 1.0) * image.height * info.scaleY;		
 		var point = new flash.geom.Point((imagex * c) - (imagey * s) + info.x, (imagex * s) + (imagey * c) - info.y);
 		
-		#if flash
+		#if (flash || js)
 		image.render(HXP.buffer, point, HXP.camera);
 		#else
 		image.renderAtlas(0, point, HXP.camera);
