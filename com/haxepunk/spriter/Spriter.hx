@@ -12,13 +12,18 @@ class Spriter extends Graphic
 	{
 		super();
 		this.x = x;
-		this.y = y;
-		blit = true;
+		this.y = y;		
+		#if flash blit = true; #end
 		
 		_scml = new Scml(this, source, Xml.parse(Assets.getText(source)));
 	}
 	
 	public override function render (target:BitmapData, point:Point, camera:Point)
+	{
+		renderAtlas(0, null, null);
+	}
+	
+	public override function renderAtlas (layer:Int, point:Point, camera:Point)
 	{
 		_scml.currentTime += Std.int(HXP.elapsed*1000);
 	}

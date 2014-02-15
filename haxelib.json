@@ -8,6 +8,6 @@
 	"releasenote": "",
 	"contributors": ["ibilon"],
 	"dependencies": {
-		"HaxePunk": "2.4.5"
+		"HaxePunk": "2.5.1"
 	}
 }
