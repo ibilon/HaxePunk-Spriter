@@ -7,10 +7,12 @@ import com.haxepunk.spriter.Spriter;
 
 class MainScene extends Scene
 {
+	private var _brawler:Spriter;
+	
 	public override function begin()
 	{
-		var brawler : Spriter = new Spriter("sprites/brawler/brawler.scml");
-		addGraphic(brawler);
+		_brawler = new Spriter("sprites/brawler/brawler.scml");
+		addGraphic(_brawler);
 		//~ 
 		//~ var imp : Spriter = new Spriter("sprites/imp/imp.scml");
 		//~ addGraphic(imp);
@@ -24,6 +26,11 @@ class MainScene extends Scene
 	
 	public override function update ()
 	{
+		//Spriter animation
+		if (Input.check(Key.SPACE))
+			_brawler.playAnim('run');
+		
+		//camera
 		if (Input.check(Key.UP))
 			HXP.camera.y -= 10;
 		if (Input.check(Key.DOWN))
