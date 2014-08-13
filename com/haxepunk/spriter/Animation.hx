@@ -1,7 +1,5 @@
 package com.haxepunk.spriter;
 
-import com.haxepunk.HXP;
-
 class Animation
 {	
 	public function new (parent:Scml, fast:haxe.xml.Fast)

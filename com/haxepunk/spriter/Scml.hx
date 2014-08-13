@@ -1,14 +1,25 @@
 package com.haxepunk.spriter;
 
-class Scml
+import openfl.Assets;
+import openfl.display.BitmapData;
+import openfl.geom.Point;
+
+class Scml extends Graphic
 {
-	public function new (parent:Spriter, name:String, source:Xml)
+	public function new (name:String, x:Float = 0, y:Float = 0)
 	{
+		super();
+		this.x = x;
+		this.y = y;		
+		#if (flash || js) blit = true; #end
+		
+		var source:Xml = Xml.parse(Assets.getText(name));
+		
+		active = true;
+		
 		_folders = new Array<Folder>();
 		_entities = new Array<ScmlEntity>();
 		activeCharacterMap = new Array<Folder>();
-		
-		_parent = parent;
 		
 		var fast = new haxe.xml.Fast(source.firstElement());
 		
@@ -30,7 +41,7 @@ class Scml
 		activeCharacterMap = _folders;
 	}
 	
-	public var currentTime(get_currentTime, set_currentTime) : Int;
+	public var currentTime(get_currentTime, set_currentTime) : Int;	
 	public inline function get_currentTime () : Int
 	{
 		var currentEnt = _entities[_currentEntity];
@@ -46,7 +57,7 @@ class Scml
 	
 	public function characterInfo () : SpatialInfo
 	{
-		return new SpatialInfo(_parent.x, _parent.y, _parent.angle, _parent.scaleX, _parent.scaleY, _parent.alpha, _parent.spin);
+		return new SpatialInfo(x, y, angle, scaleX, scaleY, alpha, spin);
 	}
 	
 	public function applyCharacterMap (charMap:CharacterMap, reset:Bool)
@@ -90,5 +101,29 @@ class Scml
 	private var _currentAnimation : Int = 0;
 	private var _folders : Array<Folder>; // <folder> tags
 	private var _entities : Array<ScmlEntity>; // <entity> tags
-	private var _parent : Spriter;
+	
+	public override function render (target:BitmapData, point:Point, camera:Point)
+	{	
+		renderAtlas(0, point, camera);
+	}
+	
+	public override function renderAtlas (layer:Int, point:Point, camera:Point)
+	{
+		// determine drawing location
+		_point.x = point.x + x - camera.x * scrollX;
+		_point.y = point.y + y - camera.y * scrollY;
+		
+		currentTime += Std.int(HXP.elapsed*1000);
+	}
+	
+	override public function update() 
+	{
+		//currentTime += Std.int(HXP.elapsed*1000);
+	}
+	
+	public var angle : Float = 0;
+	public var scaleX : Float = 1;
+	public var scaleY : Float = 1;
+	public var alpha : Float = 1;
+	public var spin : Int = 1;
 }
