@@ -1,11 +1,25 @@
 package com.haxepunk.spriter;
 
+import com.haxepunk.Entity;
 import flash.display.BitmapData;
 import openfl.Assets;
 import flash.geom.Point;
 
 class Scml extends Graphic
 {
+	public var angle : Float = 0;
+	public var scaleX : Float = 1;
+	public var scaleY : Float = 1;
+	public var alpha : Float = 1;
+	public var spin : Int = 1;
+	public var activeCharacterMap : Array<Folder>;
+	public var smooth : Bool = true;
+	
+	private var _currentEntity : ScmlEntity = null;
+	private var _currentAnimation : Animation = null;
+	private var _folders : Array<Folder>; // <folder> tags
+	private var _entities : Array<ScmlEntity>; // <entity> tags
+	
 	public function new (name:String, x:Float = 0, y:Float = 0)
 	{
 		super();
@@ -39,14 +53,14 @@ class Scml extends Graphic
 		}
 		
 		activeCharacterMap = _folders;
+		
+		_currentEntity = _entities[0];
+		_currentAnimation = _currentEntity.animations[0];
 	}
-	
-	var renderX:Float = 0;
-	var renderY:Float = 0;
 	
 	public function characterInfo () : SpatialInfo
 	{
-		return new SpatialInfo(renderX + x, renderY + y, angle, scaleX, scaleY, alpha, spin);
+		return new SpatialInfo(0, 0, angle, scaleX, scaleY, alpha, spin);
 	}
 	
 	public function applyCharacterMap (charMap:CharacterMap, reset:Bool)
@@ -70,26 +84,20 @@ class Scml extends Graphic
 	
 	public function playAnim(animName:String):Void
 	{
-		var currentEnt = _entities[_currentEntity];
-		var currentAnim:Animation ;
-		for (currentAnim in currentEnt.animations)
-		{
-			if (currentAnim.name == animName)
+		if (_currentAnimation.name != animName)
+		{		
+			var currentAnim:Animation;
+			for (currentAnim in _currentEntity.animations)
 			{
-				_currentAnimation = currentAnim.id;
-				currentAnim.currentTime = 0;
-				break;
+				if (currentAnim.name == animName)
+				{
+					_currentAnimation = currentAnim;
+					currentAnim.currentTime = 0;
+					break;
+				}
 			}
 		}
 	}
-	
-	public var activeCharacterMap : Array<Folder>;
-	public var smooth : Bool = true;
-	
-	private var _currentEntity : Int = 0;
-	private var _currentAnimation : Int = 0;
-	private var _folders : Array<Folder>; // <folder> tags
-	private var _entities : Array<ScmlEntity>; // <entity> tags
 	
 	public override function render (target:BitmapData, point:Point, camera:Point)
 	{	
@@ -97,30 +105,15 @@ class Scml extends Graphic
 	}
 		
 	public override function renderAtlas (layer:Int, point:Point, camera:Point)
-	{
-		// determine drawing location
-		//_point.x = point.x + x - camera.x * scrollX;
-		//_point.y = point.y + y - camera.y * scrollY;
+	{	
+		point.x += x;
+		point.y += y;
 		
-		var currentEnt = _entities[_currentEntity];
-		var currentAnim = currentEnt.animations[_currentAnimation];
-
-		//Doesn't work. Hmm...
-		//renderX = point.x;
-		//renderY = point.y;
-		currentAnim.render(point, camera);
+		_currentAnimation.render(point, camera);
 	}
 	
 	override public function update() 
 	{
-		var currentEnt = _entities[_currentEntity];
-		var currentAnim = currentEnt.animations[_currentAnimation];
-		currentAnim.currentTime += cast(HXP.elapsed * 1000, Int);
+		_currentAnimation.currentTime += cast(HXP.elapsed * 1000, Int);
 	}
-	
-	public var angle : Float = 0;
-	public var scaleX : Float = 1;
-	public var scaleY : Float = 1;
-	public var alpha : Float = 1;
-	public var spin : Int = 1;
 }
