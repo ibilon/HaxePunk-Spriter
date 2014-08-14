@@ -1,4 +1,5 @@
 package com.haxepunk.spriter;
+import openfl.geom.Point;
 
 class Animation
 {	
@@ -53,6 +54,8 @@ class Animation
 	public var mainlineKeys : Array<MainlineKey>; // <key> tags within a single <mainline> tag
 	public var timelines : Array<Timeline>; // <timeline> tags
 	
+	private var objectKeys = new Array<SpriteTimelineKey>();
+	
 	private function updateCharacter (mainKey:MainlineKey, newTime:Int)
 	{
 		var transformedBoneKeys = new Array<BoneTimelineKey>();
@@ -74,8 +77,8 @@ class Animation
 			currentKey.info = currentKey.info.unmapFromParent(parentInfo);
 			transformedBoneKeys.push(currentKey);
 		}
-
-		var objectKeys = new Array<SpriteTimelineKey>();
+		
+		objectKeys = new Array<SpriteTimelineKey>();
 		
 		for(currentRef in mainKey.objectRefs)
 		{
@@ -94,12 +97,13 @@ class Animation
 			currentKey.info = currentKey.info.unmapFromParent(parentInfo);
 			objectKeys.push(currentKey);
 		}
-
-		// <expose objectKeys to api users to retrieve AND replace objectKeys>
-
+	}
+	
+	public function render (point:Point, camera:Point)
+	{		
 		for (k in objectKeys)
 		{            
-			k.paint();
+			k.paint(point);
 		}
 	}
 	

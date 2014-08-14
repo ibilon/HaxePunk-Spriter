@@ -1,8 +1,8 @@
 package com.haxepunk.spriter;
 
+import flash.display.BitmapData;
 import openfl.Assets;
-import openfl.display.BitmapData;
-import openfl.geom.Point;
+import flash.geom.Point;
 
 class Scml extends Graphic
 {
@@ -41,23 +41,12 @@ class Scml extends Graphic
 		activeCharacterMap = _folders;
 	}
 	
-	public var currentTime(get_currentTime, set_currentTime) : Int;	
-	public inline function get_currentTime () : Int
-	{
-		var currentEnt = _entities[_currentEntity];
-		var currentAnim = currentEnt.animations[_currentAnimation];
-		return currentAnim.currentTime;
-	}
-	public inline function set_currentTime (value:Int) : Int
-	{
-		var currentEnt = _entities[_currentEntity];
-		var currentAnim = currentEnt.animations[_currentAnimation];
-		return currentAnim.currentTime = value;
-	}
+	var renderX:Float = 0;
+	var renderY:Float = 0;
 	
 	public function characterInfo () : SpatialInfo
 	{
-		return new SpatialInfo(x, y, angle, scaleX, scaleY, alpha, spin);
+		return new SpatialInfo(renderX + x, renderY + y, angle, scaleX, scaleY, alpha, spin);
 	}
 	
 	public function applyCharacterMap (charMap:CharacterMap, reset:Bool)
@@ -106,19 +95,27 @@ class Scml extends Graphic
 	{	
 		renderAtlas(0, point, camera);
 	}
-	
+		
 	public override function renderAtlas (layer:Int, point:Point, camera:Point)
 	{
 		// determine drawing location
-		_point.x = point.x + x - camera.x * scrollX;
-		_point.y = point.y + y - camera.y * scrollY;
+		//_point.x = point.x + x - camera.x * scrollX;
+		//_point.y = point.y + y - camera.y * scrollY;
 		
-		currentTime += Std.int(HXP.elapsed*1000);
+		var currentEnt = _entities[_currentEntity];
+		var currentAnim = currentEnt.animations[_currentAnimation];
+
+		//Doesn't work. Hmm...
+		//renderX = point.x;
+		//renderY = point.y;
+		currentAnim.render(point, camera);
 	}
 	
 	override public function update() 
 	{
-		//currentTime += Std.int(HXP.elapsed*1000);
+		var currentEnt = _entities[_currentEntity];
+		var currentAnim = currentEnt.animations[_currentAnimation];
+		currentAnim.currentTime += cast(HXP.elapsed * 1000, Int);
 	}
 	
 	public var angle : Float = 0;

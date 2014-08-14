@@ -1,4 +1,5 @@
 package com.haxepunk.spriter;
+import openfl.geom.Point;
 
 class SpriteTimelineKey extends SpatialTimelineKey
 {
@@ -16,7 +17,7 @@ class SpriteTimelineKey extends SpatialTimelineKey
 		pivot_y = fast.has.pivot_y ? Std.parseFloat(fast.att.pivot_y) : 1;
 	}
 	
-	public function paint ()
+	public function paint (parentPoint:Point)
 	{
 		var paintPivotX : Float;
 		var paintPivotY : Float;
@@ -49,6 +50,9 @@ class SpriteTimelineKey extends SpatialTimelineKey
 		var imagex = -(paintPivotX + 0.0) * image.width * info.scaleX;
 		var imagey = (paintPivotY - 1.0) * image.height * info.scaleY;		
 		var point = new flash.geom.Point((imagex * c) - (imagey * s) + info.x, (imagex * s) + (imagey * c) - info.y);
+		
+		point.x += parentPoint.x;
+		point.y += parentPoint.y;
 		
 		#if (flash || js)
 		image.render(HXP.buffer, point, HXP.camera);
